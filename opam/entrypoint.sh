@@ -6,7 +6,7 @@ if [ "$*" = "" ]; then
   opam depext -u odoc ${LOCAL_PKGS}
   # TODO get a host binary of odoc instead
   opam install -y odoc
-  opam install -y --with-test .
+  opam install -y --with-test --deps-only .
 else
   sh -c "opam $*"
 fi
