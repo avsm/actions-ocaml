@@ -1,8 +1,8 @@
 #!/bin/sh -ex
 
-git config credential.helper 'cache --timeout=120'
-git config user.email "anil@recoil.org"
-git config user.name "Github Action"
+git config --global credential.helper 'cache --timeout=120'
+git config --global user.email "anil@recoil.org"
+git config --global user.name "Github Action"
 
 rm -rf /tmp/docs
 mkdir /tmp/docs
