@@ -12,6 +12,6 @@ USER root
 ENV OPAMYES=1
 ENV OPAMROOTISOK=1
 ENV OPAMROOT=/home/opam/.opam
-RUN opam install -y dune odoc
+RUN opam --yes depext -iy dune odoc
 ADD entrypoint.sh /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
