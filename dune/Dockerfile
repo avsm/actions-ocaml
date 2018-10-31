@@ -1,4 +1,4 @@
-FROM alpine:edge
+FROM ocaml/opam2
 LABEL "com.github.actions.name"="dune"
 LABEL "com.github.actions.description"="Build a local dune project"
 LABEL "com.github.actions.icon"="cpu"
@@ -8,7 +8,10 @@ LABEL "repository"="http://github.com/avsm/actions-ocaml"
 LABEL "homepage"="http://github.com/avsm/actions-ocaml"
 LABEL "maintainer"="Anil Madhavapeddy <anil@recoil.org>"
 
-RUN apk add --update opam ocaml-dev ocaml-doc ocaml-ocamldoc ocaml-compiler-libs git alpine-sdk
-RUN git clone --depth=1 git://github.com/ocaml/dune && cd dune && make && sudo make install && cd .. && rm -rf dune
+USER root
+ENV OPAMYES=1
+ENV OPAMROOTISOK=1
+ENV OPAMROOT=/home/opam/.opam
+RUN opam install -y dune odoc
 ADD entrypoint.sh /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
