@@ -8,7 +8,7 @@ LABEL "repository"="http://github.com/avsm/actions-ocaml"
 LABEL "homepage"="http://github.com/avsm/actions-ocaml"
 LABEL "maintainer"="Anil Madhavapeddy <anil@recoil.org>"
 
-RUN apk add --update opam m4 alpine-sdk
+RUN apk add --update ocaml-compiler-libs opam m4 alpine-sdk
 ENV OPAMYES=1
 ENV OPAMROOTISOK=1
 ADD entrypoint.sh /entrypoint.sh
