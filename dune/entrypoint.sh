@@ -2,4 +2,4 @@
 
 opam list
 
-sh -c "opam config exec -- dune $*"
+sh -c "opam config exec -- dune $* --verbose"
