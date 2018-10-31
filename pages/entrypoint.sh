@@ -15,4 +15,4 @@ git clean -dxf
 cp -r $GITHUB_WORKSPACE/*.opam /tmp/docs/
 git add .
 git commit -m "Update Pages"
-git push -q https://${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git gh-pages -f
+git push -q https://${GITHUB_TOKEN}:x-oauth-basic@github.com/${GITHUB_REPOSITORY}.git gh-pages -f
