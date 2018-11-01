@@ -4,6 +4,7 @@
 if [ -d "${GITHUB_WORKSPACE}/.opam" ]; then
   mv /home/opam/.opam /home/opam/.opam.old
 else
+  sudo chown -R opam ${GITHUB_WORKSPACE}
   mv /home/opam/.opam ${GITHUB_WORKSPACE}/.opam
 fi
 ln -s ${GITHUB_WORKSPACE}/.opam /home/opam/.opam
