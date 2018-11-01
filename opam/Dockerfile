@@ -9,9 +9,6 @@ LABEL "repository"="http://github.com/avsm/actions-ocaml"
 LABEL "homepage"="http://github.com/avsm/actions-ocaml"
 LABEL "maintainer"="Anil Madhavapeddy <anil@recoil.org>"
 
-USER root
 ENV OPAMYES=1
-ENV OPAMROOTISOK=1
-ENV OPAMROOT=/home/opam/.opam
 ADD entrypoint.sh /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
