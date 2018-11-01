@@ -13,5 +13,6 @@ if [ "${OCAML_VERSION}" != "" ]; then
 fi
 
 opam depext -iy dune-release
+git clean -dxf
 opam config exec -- dune-release distrib
 ls -la _build
