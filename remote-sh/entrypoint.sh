@@ -19,7 +19,8 @@ UUID=`uuidgen -r`
 mkdir -p ~/.ssh
 ssh-keyscan $HOST >> ~/.ssh/known_hosts
 echo "$HOST_SSH_KEY" > ~/.ssh/id_rsa
-chmod -R 600 ~/.ssh 
+chmod -R 750 ~/.ssh 
 
+cat ~/.ssh/known_hosts
 ssh "$HOST_USER@$HOST" ls -la
 ssh "$HOST_USER@$HOST" id
