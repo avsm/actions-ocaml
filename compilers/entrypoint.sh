@@ -1,5 +1,13 @@
 #!/bin/sh -ex
 
+# Ensure we persist the opam root
+if [ -d "${GITHUB_WORKSPACE}/.opam" ]; then
+  mv /home/opam/opam-repository/.opam /home/opam/opam-repository/.opam.old
+else
+  mv /home/opam/opam-repository/.opam ${GITHUB_WORKSPACE}/.opam
+fi
+ln -s ${GITHUB_WORKSPACE}/.opam /home/opam/opam-repository/.opam
+
 if [ "${OCAML_VERSION}" != "" ]; then
   OPAMSWITCH="${OCAML_VERSION}"
 fi
