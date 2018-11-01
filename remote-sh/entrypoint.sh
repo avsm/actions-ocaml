@@ -30,9 +30,9 @@ function cleanup {
   $SSH rm -rf $UUID
 }
 
+$SSH mkdir $UUID
 trap cleanup EXIT
 
-$SSH mkdir $UUID/workspace
 echo Syncing workspace to remote server with uuid ${UUID}
 rsync -avz ${GITHUB_WORKSPACE}/ ${HOST_USER}@${HOST}:${UUID}/
 
