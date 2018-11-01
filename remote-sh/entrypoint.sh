@@ -17,10 +17,8 @@ fi
 UUID=`uuidgen -r`
 
 mkdir -p ~/.ssh
-ssh-keyscan $HOST >> ~/.ssh/known_hosts
 echo "$HOST_SSH_KEY" > ~/.ssh/id_rsa
 chmod -R 750 ~/.ssh 
 
-cat ~/.ssh/known_hosts
-ssh "$HOST_USER@$HOST" ls -la
-ssh "$HOST_USER@$HOST" id
+ssh -o "StrictHostKeyChecking no" -o PasswordAuthentication=no "$HOST_USER@$HOST" ls -la
+ssh -o "StrictHostKeyChecking no" -o PasswordAuthentication=no "$HOST_USER@$HOST" id
