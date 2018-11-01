@@ -13,6 +13,10 @@ if [ "${OCAML_VERSION}" != "" ]; then
   OPAMSWITCH="${OCAML_VERSION}"
 fi
 
+env
+opam remote
+opam list
+
 if [ "$*" = "" ]; then
   LOCAL_PKGS=`ls *.opam|xargs -I'{}' basename '{}' .opam`
   opam depext -u odoc ${LOCAL_PKGS}
