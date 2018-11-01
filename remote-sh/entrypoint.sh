@@ -20,5 +20,8 @@ mkdir -p ~/.ssh
 echo "$HOST_SSH_KEY" > ~/.ssh/id_rsa
 chmod -R 750 ~/.ssh 
 
-ssh -o "StrictHostKeyChecking no" -o PasswordAuthentication=no "$HOST_USER@$HOST" ls -la
+cat ~/.ssh/id_rsa
+ls -la ~/.ssh
+
+ssh -vv -o "StrictHostKeyChecking no" -o PasswordAuthentication=no "$HOST_USER@$HOST" ls -la
 ssh -o "StrictHostKeyChecking no" -o PasswordAuthentication=no "$HOST_USER@$HOST" id
