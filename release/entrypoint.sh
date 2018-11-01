@@ -12,6 +12,6 @@ if [ "${OCAML_VERSION}" != "" ]; then
   OPAMSWITCH="${OCAML_VERSION}"
 fi
 
-opam depext -y dune-release
+opam depext -iy dune-release
 opam config exec -- dune-release distrib
 ls -la _build
