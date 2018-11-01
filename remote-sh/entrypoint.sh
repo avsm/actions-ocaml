@@ -12,8 +12,10 @@ fi
 # Construct a fresh directory on remote host
 UUID=`uuidgen -r`
 
-mkdir ~/.ssh
+mkdir -p ~/.ssh
 ssh-keyscan >> ~/.ssh/known_hosts
+echo "$HOST_SSH_KEY" > ~/.ssh/id_rsa
+chmod -R 600 ~/.ssh 
 
 ssh $HOST ls -la
 ssh $HOST id
