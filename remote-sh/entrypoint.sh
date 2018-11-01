@@ -16,12 +16,11 @@ fi
 # Construct a fresh directory on remote host
 UUID=`uuidgen -r`
 
-mkdir -p ~/.ssh
-echo "$HOST_SSH_KEY" > ~/.ssh/id_rsa
-chmod -R 750 ~/.ssh 
+env
 
-cat ~/.ssh/id_rsa
-ls -la ~/.ssh
+mkdir -p /root/.ssh
+echo "$HOST_SSH_KEY" > /root/.ssh/id_rsa
+chmod -R 750 /root/.ssh 
 
 ssh -vv -o "StrictHostKeyChecking no" -o PasswordAuthentication=no "$HOST_USER@$HOST" ls -la
 ssh -o "StrictHostKeyChecking no" -o PasswordAuthentication=no "$HOST_USER@$HOST" id
