@@ -24,4 +24,23 @@ set -x
 UUID=`uuidgen -r`
 
 SSH="ssh -o StrictHostKeyChecking=no -o PasswordAuthentication=no -l$HOST_USER $HOST"
-$SSH ls -la
+
+function cleanup {
+  echo Cleaning up $UUID on remote server.
+  $SSH rm -rf $UUID
+}
+
+trap cleanup EXIT
+
+$SSH mkdir $UUID
+
+for cmd in "$@"; do
+    echo "Running '$cmd' on remote server"
+    if $SSH "cd $UUID; $cmd"; then
+        echo "Successfully ran '$cmd'"
+    else
+        exit_code=$?
+        echo "Failure running '$cmd', exited with $exit_code"
+        exit $exit_code
+    fi
+done
