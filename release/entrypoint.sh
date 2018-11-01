@@ -1,5 +1,9 @@
 #!/bin/sh -ex
 
+mv ${GITHUB_WORKSPACE}/.opam /tmp/.opam
+git clean -dxf
+mv /tmp/.opam ${GITHUB_WORKSPACE}/.opam
+
 # Ensure we persist the opam root
 if [ -d "${GITHUB_WORKSPACE}/.opam" ]; then
   mv /home/opam/.opam /home/opam/.opam.old
@@ -13,6 +17,5 @@ if [ "${OCAML_VERSION}" != "" ]; then
 fi
 
 opam depext -iy dune-release
-git clean -dxf
 opam config exec -- dune-release distrib
 ls -la _build
