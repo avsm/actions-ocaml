@@ -19,8 +19,9 @@ UUID=`uuidgen -r`
 env
 
 mkdir -p /root/.ssh
+chmod 700 /root/.ssh 
 echo "$HOST_SSH_KEY" > /root/.ssh/id_rsa
-chmod -R 750 /root/.ssh 
+chmod 600 /root/.ssh/id_rsa
 
 ssh -vv -o "StrictHostKeyChecking no" -o PasswordAuthentication=no "$HOST_USER@$HOST" ls -la
 ssh -o "StrictHostKeyChecking no" -o PasswordAuthentication=no "$HOST_USER@$HOST" id
