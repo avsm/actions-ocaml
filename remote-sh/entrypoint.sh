@@ -25,7 +25,7 @@ SSH="ssh -o StrictHostKeyChecking=no -o PasswordAuthentication=no -l$HOST_USER $
 
 function cleanup {
   echo Transferring workspace/ back to $GITHUB_WORKSPACE locally.
-  rsync -avz ${HOST_USER}@${HOST}:${UUID}/ ${GITHUB_WORKSPACE}/
+  rsync -az ${HOST_USER}@${HOST}:${UUID}/ ${GITHUB_WORKSPACE}/
   echo Cleaning up $UUID on remote server.
   $SSH rm -rf $UUID
 }
@@ -34,7 +34,7 @@ $SSH mkdir $UUID
 trap cleanup EXIT
 
 echo Syncing workspace to remote server with uuid ${UUID}
-rsync -avz ${GITHUB_WORKSPACE}/ ${HOST_USER}@${HOST}:${UUID}/
+rsync -az ${GITHUB_WORKSPACE}/ ${HOST_USER}@${HOST}:${UUID}/
 
 for cmd in "$@"; do
     echo "Running '$cmd' on remote server"
