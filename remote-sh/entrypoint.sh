@@ -5,12 +5,19 @@ if [ "$HOST" = "" ]; then
   exit 1
 fi
 
+if [ "$HOST_SSH_KEY_ID" != "" ]; then
+  v="HOST_SSH_KEY_${HOST_KEY_ID}"
+  eval HOST_SSH_KEY=\$$v
+fi
+
 if [ "$HOST_USER" = "" ]; then
   HOST_USER="root"
 fi
 
 if [ "$HOST_SSH_KEY" = "" ]; then
    echo Must specify HOST_SSH_KEY in secrets configuration.
+   echo "You can also define HOST_SSH_KEY_ID and define a HOST_SSH_KEY_<id> secret instead."
+   exit 1
 fi
 
 mkdir -p /root/.ssh
