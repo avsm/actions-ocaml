@@ -6,7 +6,8 @@ if [ "$HOST" = "" ]; then
 fi
 
 if [ "$HOST_SSH_KEY_ID" != "" ]; then
-  v="HOST_SSH_KEY_${HOST_KEY_ID}"
+  echo Using $HOST_SSH_KEY_ID key for remote ssh target.
+  v="HOST_SSH_KEY_${HOST_SSH_KEY_ID}"
   eval HOST_SSH_KEY=\$$v
 fi
 
