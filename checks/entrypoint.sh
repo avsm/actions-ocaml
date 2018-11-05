@@ -1,7 +1,7 @@
 #!/bin/sh -ex
 
 ls -la /github/workflow
-cat /github/workflow/event.json
+jq . /github/workflow/event.json
 env
 
 PAYLOAD=$(echo '{}' | jq ".name = \"testcheck\" | .head_sha=\"$GITHUB_SHA\"")
