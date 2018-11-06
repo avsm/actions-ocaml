@@ -16,3 +16,5 @@ curl -X PATCH -S \
   -H "Content-Type: application/json" \
   -H "Accept: application/vnd.github.antiope-preview+json" \
   --data "$PAYLOAD"  ${CHECK_RUN_URL}
+
+sleep 160
