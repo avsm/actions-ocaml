@@ -33,7 +33,7 @@ SSH="ssh -o StrictHostKeyChecking=no -o PasswordAuthentication=no -l$HOST_USER $
 
 function cleanup {
   echo Transferring workspace/ back to $GITHUB_WORKSPACE locally.
-  rsync -az ${HOST_USER}@${HOST}:${UUID}/ ${GITHUB_WORKSPACE}/
+  sudo rsync -az ${HOST_USER}@${HOST}:${UUID}/ ${GITHUB_WORKSPACE}/
   echo Cleaning up $UUID on remote server.
   $SSH rm -rf $UUID
 }
