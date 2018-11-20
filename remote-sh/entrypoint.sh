@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 if [ "$HOST" = "" ]; then
   echo Must specify HOST variable in action configuration.
@@ -33,7 +33,7 @@ SSH="ssh -o StrictHostKeyChecking=no -o PasswordAuthentication=no -l$HOST_USER $
 
 function cleanup {
   echo Transferring workspace/ back to $GITHUB_WORKSPACE locally.
-  sudo rsync -az ${HOST_USER}@${HOST}:${UUID}/ ${GITHUB_WORKSPACE}/
+  sudo rsync -az ${HOST_USER}@${HOST}:${UUID}/ ${GITHUB_WORKSPACE}/ &> cleanup.txt
   echo Cleaning up $UUID on remote server.
   $SSH rm -rf $UUID
 }
@@ -42,7 +42,7 @@ $SSH mkdir $UUID
 trap cleanup EXIT
 
 echo Syncing workspace to remote server with uuid ${UUID}
-rsync -az ${GITHUB_WORKSPACE}/ ${HOST_USER}@${HOST}:${UUID}/
+rsync -az ${GITHUB_WORKSPACE}/ ${HOST_USER}@${HOST}:${UUID}/ &> log.txt
 
 for cmd in "$@"; do
     echo "Running '$cmd' on remote server"
