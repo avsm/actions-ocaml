@@ -2,4 +2,8 @@ FROM ocaml/opam2
 RUN git -C /home/opam/opam-repository pull && opam update
 RUN opam pin add . -n
 RUN opam depext ocamlformat odoc %%PKGS%%
-RUN opam install . --deps-only
+COPY . /home/opam/src
+RUN chown -R opam /home/opam/src
+RUN opam install /home/opam/src --deps-only
+RUN opam pin remove %%PKGS%% -n
+RUN rm -rf /home/opam/src
