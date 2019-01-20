@@ -1,4 +1,4 @@
-#!/bin/sh -x
+#!/bin/sh -ex
 
 if [ -e "Dockerfile.action" ]; then
   echo Dockerfile.action cannot exist in source repository.
@@ -25,7 +25,7 @@ else
   BASE_IMG=ocaml/opam2
 fi
 
-sed -e "s/%%PKGS%%/${PKGS}/g" -e "s/%%BASE_IMG%%/${IMG}/g" /Dockerfile.template > Dockerfile.action
+sed -e "s/%%PKGS%%/${PKGS}/g" -e "s,%%BASE_IMG%%,${IMG},g" /Dockerfile.template > Dockerfile.action
 
 cat Dockerfile.action
 
