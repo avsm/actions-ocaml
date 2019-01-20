@@ -2,8 +2,6 @@
 
 PKGS=`ls *.opam | xargs -I'{}' basename '{}' .opam`
 
-IMAGE=foo
-
 echo Building: ${PKGS}
 
 if [ -e "Dockerfile.action" ]; then
@@ -11,15 +9,24 @@ if [ -e "Dockerfile.action" ]; then
   exit 1
 fi
 
+if [ "${DOCKER_IMAGE}" = "" ]; then
+  echo Must set DOCKER_IMAGE to a Docker Hub user/repo for caching deps
+  exit 1
+fi
+
 sed -e "s/%%PKGS%%/${PKGS}/g" /Dockerfile.template > Dockerfile.action
+
+docker info
 
 cat Dockerfile.action
 
-docker build -f Dockerfile.action -t ${IMAGE} .
+DOCKER_TAG=master
+echo github ref = $GITHUB_REF
+docker build -f Dockerfile.action -t ${DOCKER_IMAGE}:${DOCKER_TAG}
 
 if [ ! -e "$HOME/.docker/config.json" ]; then
   echo Need the Docker login action in the workflow to push image.
   exit 0
 else
-  echo TODO push
+  docker push ${DOCKER_IMAGE}:${DOCKER_TAG}
 fi
