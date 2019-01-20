@@ -1,4 +1,5 @@
 #!/bin/sh -ex
 
-docker run -v ${GITHUB_WORKSPACE}:/mnt ${DOCKER_IMAGE}:master opam list 
-docker run -v ${GITHUB_WORKSPACE}:/mnt ${DOCKER_IMAGE}:master ls -la /mnt/
+docker run ${DOCKER_IMAGE}:master opam list 
+docker run ${DOCKER_IMAGE}:master tar -C /home/opam/.opam -cf - . | tar -xf -
+find .
