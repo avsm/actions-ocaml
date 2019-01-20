@@ -22,7 +22,7 @@ cat Dockerfile.action
 
 DOCKER_TAG=master
 echo github ref = $GITHUB_REF
-docker build -f Dockerfile.action -t ${DOCKER_IMAGE}:${DOCKER_TAG}
+docker build -f Dockerfile.action -t ${DOCKER_IMAGE}:${DOCKER_TAG} .
 
 if [ ! -e "$HOME/.docker/config.json" ]; then
   echo Need the Docker login action in the workflow to push image.
