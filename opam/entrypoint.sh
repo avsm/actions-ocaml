@@ -13,9 +13,7 @@ if [ "${OCAML_VERSION}" != "" ]; then
   OPAMSWITCH="${OCAML_VERSION}"
 fi
 
-env
-opam remote
-opam list
+git -C /home/opam/opam-repository pull && opam update -uy
 
 if [ "$*" = "" ]; then
   opam pin add -n .
