@@ -15,7 +15,7 @@ sed -e "s/%%PKGS%%/${PKGS}/g" /Dockerfile.template > Dockerfile.action
 
 cat Dockerfile.action
 
-docker build -f Dockerfile.action ${IMAGE}
+docker build -f Dockerfile.action -t ${IMAGE} .
 
 if [ ! -e "$HOME/.docker/config.json" ]; then
   echo Need the Docker login action in the workflow to push image.
