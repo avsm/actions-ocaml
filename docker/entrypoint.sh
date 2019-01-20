@@ -6,11 +6,16 @@ IMAGE=foo
 
 echo Building: ${PKGS}
 
-sed -e "s/%%PKGS%%/${PKGS}/g" Dockerfile.template > Dockerfile.build
+if [ -e "Dockerfile.action" ]; then
+  echo Dockerfile.action cannot exist in source repository.
+  exit 1
+fi
 
-cat Dockerfile.build
+sed -e "s/%%PKGS%%/${PKGS}/g" /Dockerfile.template > Dockerfile.action
 
-docker build -f Dockerfile.build ${IMAGE}
+cat Dockerfile.action
+
+docker build -f Dockerfile.action ${IMAGE}
 
 if [ ! -e "$HOME/.docker/config.json" ]; then
   echo Need the Docker login action in the workflow to push image.
