@@ -17,7 +17,7 @@ echo Building opam packages: ${PKGS}
 
 IMG=${DOCKER_IMAGE}:${DOCKER_TAG}
 
-if docker pull ${IMG} then
+if docker pull ${IMG}; then
   echo Existing base image found, refreshing it
   BASE_IMG=${IMG}
 else
