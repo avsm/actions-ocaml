@@ -1,8 +1,4 @@
-#!/bin/sh -ex
-
-PKGS=`ls *.opam | xargs -I'{}' basename '{}' .opam`
-
-echo Building: ${PKGS}
+#!/bin/sh -x
 
 if [ -e "Dockerfile.action" ]; then
   echo Dockerfile.action cannot exist in source repository.
@@ -14,13 +10,25 @@ if [ "${DOCKER_IMAGE}" = "" ]; then
   exit 1
 fi
 
-sed -e "s/%%PKGS%%/${PKGS}/g" /Dockerfile.template > Dockerfile.action
+DOCKER_TAG=master
 
-docker info
+PKGS=`ls *.opam | xargs -I'{}' basename '{}' .opam`
+echo Building opam packages: ${PKGS}
+
+IMG=${DOCKER_IMAGE}:${DOCKER_TAG}
+
+if docker pull ${IMG} then
+  echo Existing base image found, refreshing it
+  BASE_IMG=${IMG}
+else
+  echo No image at ${IMG} so creating fresh one
+  BASE_IMG=ocaml/opam2
+fi
+
+sed -e "s/%%PKGS%%/${PKGS}/g" -e "s/%%BASE_IMG%%/${IMG}/g" /Dockerfile.template > Dockerfile.action
 
 cat Dockerfile.action
 
-DOCKER_TAG=master
 echo github ref = $GITHUB_REF
 docker build -f Dockerfile.action -t ${DOCKER_IMAGE}:${DOCKER_TAG} .
 

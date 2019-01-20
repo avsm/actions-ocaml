@@ -1,7 +1,7 @@
-FROM ocaml/opam2
-RUN git -C /home/opam/opam-repository pull && opam update
+FROM %%BASE_IMG%%
+RUN git -C /home/opam/opam-repository pull && opam update -uy
 RUN opam pin add . -n
-RUN opam depext ocamlformat odoc %%PKGS%%
+RUN opam depext %%PKGS%%
 COPY . /home/opam/src
 RUN sudo chown -R opam /home/opam/src
 RUN opam install /home/opam/src --deps-only
