@@ -18,6 +18,7 @@ opam remote
 opam list
 
 if [ "$*" = "" ]; then
+  opam pin add -n .
   LOCAL_PKGS=`ls *.opam|xargs -I'{}' basename '{}' .opam`
   opam depext -u odoc ${LOCAL_PKGS}
   # TODO get a host binary of odoc instead
